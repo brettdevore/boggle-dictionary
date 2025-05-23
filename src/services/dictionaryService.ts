@@ -12,23 +12,35 @@ const calculateScore = (word: string): number => {
   return Math.max(0, length - 2);
 };
 
-// Type assertion for the dictionary import
-const wordList: string[] = dictionary as string[];
+// Type the dictionary as a record of word to definition
+type Dictionary = Record<string, string>;
+
+// Debug log to check dictionary entry structure
+const sampleWord = Object.keys(dictionary)[0];
+console.log('Sample word entry:', (dictionary as Dictionary)[sampleWord]);
+
+// Get array of words from dictionary object, filtering out words shorter than 3 letters
+const wordList = Object.keys(dictionary).filter(word => word.length >= 3);
 
 export const searchWord = async (word: string): Promise<WordResult | null> => {
   try {
     const normalizedWord = word.trim().toLowerCase();
-    const exists = wordList.includes(normalizedWord);
+    // Only consider words that are at least 3 letters long
+    if (normalizedWord.length < 3) {
+      return null;
+    }
+    const exists = normalizedWord in dictionary;
     
     if (exists) {
       return {
         word: normalizedWord,
-        definition: 'Valid Boggle word',
+        definition: (dictionary as Dictionary)[normalizedWord],
         score: calculateScore(normalizedWord)
       };
     }
     return null;
-  } catch {
+  } catch (error) {
+    console.error('Error searching word:', error);
     return null;
   }
 };
@@ -37,7 +49,7 @@ export const getWordSuggestions = async (prefix: string): Promise<string[]> => {
   try {
     const normalizedPrefix = prefix.toLowerCase();
     
-    // Filter words from the dictionary that start with the prefix
+    // Filter words from the dictionary that start with the prefix and are at least 3 letters long
     const suggestions = wordList
       .filter((word: string) => word.startsWith(normalizedPrefix))
       .sort((a: string, b: string) => {
