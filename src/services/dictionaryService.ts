@@ -1,25 +1,9 @@
-import axios from 'axios';
+import dictionary from '../dictionary.json';
 
 export interface WordResult {
   word: string;
   definition: string;
   score: number;
-}
-
-export interface DictionaryEntry {
-  word: string;
-  phonetic: string;
-  phonetics: Array<{
-    text: string;
-    audio: string;
-  }>;
-  meanings: Array<{
-    partOfSpeech: string;
-    definitions: Array<{
-      definition: string;
-      example: string;
-    }>;
-  }>;
 }
 
 const calculateScore = (word: string): number => {
@@ -28,19 +12,19 @@ const calculateScore = (word: string): number => {
   return Math.max(0, length - 2);
 };
 
+// Type assertion for the dictionary import
+const wordList: string[] = dictionary as string[];
+
 export const searchWord = async (word: string): Promise<WordResult | null> => {
   try {
-    const response = await axios.get<DictionaryEntry[]>(
-      `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
-    );
+    const normalizedWord = word.trim().toLowerCase();
+    const exists = wordList.includes(normalizedWord);
     
-    if (response.data && response.data.length > 0) {
-      const entry = response.data[0];
-      const wordToScore = entry.word.trim();
+    if (exists) {
       return {
-        word: wordToScore,
-        definition: entry.meanings[0]?.definitions[0]?.definition || 'No definition available',
-        score: calculateScore(wordToScore)
+        word: normalizedWord,
+        definition: 'Valid Boggle word',
+        score: calculateScore(normalizedWord)
       };
     }
     return null;
@@ -51,21 +35,11 @@ export const searchWord = async (word: string): Promise<WordResult | null> => {
 
 export const getWordSuggestions = async (prefix: string): Promise<string[]> => {
   try {
-    // Get suggestions from Datamuse API with more results
-    const response = await axios.get(
-      `https://api.datamuse.com/words?sp=${prefix}*&max=30&md=d`
-    );
+    const normalizedPrefix = prefix.toLowerCase();
     
-    // Filter and sort suggestions
-    const suggestions = response.data
-      .map((item: { word: string }) => item.word)
-      .filter((word: string) => {
-        // Include all words that start with the prefix
-        const startsWithPrefix = word.toLowerCase().startsWith(prefix.toLowerCase());
-        // Include three-letter words even if they don't match the prefix exactly
-        const isThreeLetter = word.length === 3;
-        return startsWithPrefix || isThreeLetter;
-      })
+    // Filter words from the dictionary that start with the prefix
+    const suggestions = wordList
+      .filter((word: string) => word.startsWith(normalizedPrefix))
       .sort((a: string, b: string) => {
         // First sort by length
         if (a.length !== b.length) {
@@ -78,7 +52,7 @@ export const getWordSuggestions = async (prefix: string): Promise<string[]> => {
 
     return suggestions;
   } catch (error) {
-    console.error('Error fetching suggestions:', error);
+    console.error('Error getting suggestions:', error);
     return [];
   }
 }; 
