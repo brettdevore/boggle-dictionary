@@ -39,6 +39,12 @@ function App() {
             inputValue={search}
             onInputChange={(_, v) => setSearch(v)}
             onChange={(_, v) => handleSearch(v)}
+            ListboxProps={{
+              style: {
+                maxHeight: 48 * 7, // 7 items at 48px each
+                overflowY: 'auto',
+              },
+            }}
             renderInput={(params) => (
               <TextField {...params} placeholder="Type your word..." variant="outlined" fullWidth />
             )}

@@ -46,5 +46,5 @@ export const getWordSuggestions = async (prefix: string): Promise<string[]> => {
   return Object.keys(dictionary)
     .filter(word => word.length >= 3 && !word.includes(' ') && word.startsWith(normalizedPrefix))
     .sort((a, b) => a.length !== b.length ? a.length - b.length : a.localeCompare(b))
-    .slice(0, 5);
+    .slice(0, 21);
 }; 
