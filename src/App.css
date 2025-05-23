@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+html, body, #root, .app {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.app {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: white;
+  display: flex;
+}
+
+.container {
+  width: 100%;
+  max-width: none;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo-container {
+  margin-bottom: 1rem;
+}
+
+.logo-container svg {
+  width: 200px;
+  height: auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #2d3748;
+  text-align: center;
+  margin: 0;
+}
+
+.subtitle {
+  color: #4a5568;
+  text-align: center;
+  margin: 0;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Material UI overrides */
+.search-input .MuiOutlinedInput-root {
+  background-color: white;
+}
+
+.search-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #cbd5e0;
+}
+
+.search-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #4299e1;
+}
+
+.search-input .MuiAutocomplete-listbox {
+  padding: 0;
+}
+
+.search-input .MuiAutocomplete-option {
+  padding: 0.75rem 1rem;
+  color: #2d3748;
+}
+
+.search-input .MuiAutocomplete-option:hover {
+  background-color: #f7fafc;
+}
+
+.search-input .MuiAutocomplete-option.Mui-focused {
+  background-color: #ebf8ff;
+  color: #2b6cb0;
+}
+
+.loading {
+  color: #718096;
+  margin: 0;
+}
+
+.results {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.result-card {
+  padding: 1.5rem;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.result-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #2d3748;
+}
+
+.score {
+  padding: 0.25rem 0.75rem;
+  background-color: #48bb78;
+  color: white;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+}
+
+.definition {
+  margin: 0;
+  color: #4a5568;
+  line-height: 1.5;
+} 
