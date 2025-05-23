@@ -19,14 +19,15 @@ type Dictionary = Record<string, string>;
 const sampleWord = Object.keys(dictionary)[0];
 console.log('Sample word entry:', (dictionary as Dictionary)[sampleWord]);
 
-// Get array of words from dictionary object, filtering out words shorter than 3 letters
-const wordList = Object.keys(dictionary).filter(word => word.length >= 3);
+// Get array of words from dictionary object, filtering out words shorter than 3 letters and words with spaces
+const wordList = Object.keys(dictionary)
+  .filter(word => word.length >= 3 && !word.includes(' '));
 
 export const searchWord = async (word: string): Promise<WordResult | null> => {
   try {
     const normalizedWord = word.trim().toLowerCase();
-    // Only consider words that are at least 3 letters long
-    if (normalizedWord.length < 3) {
+    // Only consider words that are at least 3 letters long and don't contain spaces
+    if (normalizedWord.length < 3 || normalizedWord.includes(' ')) {
       return null;
     }
     const exists = normalizedWord in dictionary;
@@ -49,7 +50,7 @@ export const getWordSuggestions = async (prefix: string): Promise<string[]> => {
   try {
     const normalizedPrefix = prefix.toLowerCase();
     
-    // Filter words from the dictionary that start with the prefix and are at least 3 letters long
+    // Filter words from the dictionary that start with the prefix, are at least 3 letters long, and don't contain spaces
     const suggestions = wordList
       .filter((word: string) => word.startsWith(normalizedPrefix))
       .sort((a: string, b: string) => {
