@@ -15,13 +15,20 @@ const calculateScore = (word: string): number => {
 // Type the dictionary as a record of word to definition
 type Dictionary = Record<string, string>;
 
+// Cache the filtered word list
+let cachedWordList: string[] | null = null;
+
+const getWordList = (): string[] => {
+  if (!cachedWordList) {
+    cachedWordList = Object.keys(dictionary)
+      .filter(word => word.length >= 3 && !word.includes(' '));
+  }
+  return cachedWordList;
+};
+
 // Debug log to check dictionary entry structure
 const sampleWord = Object.keys(dictionary)[0];
 console.log('Sample word entry:', (dictionary as Dictionary)[sampleWord]);
-
-// Get array of words from dictionary object, filtering out words shorter than 3 letters and words with spaces
-const wordList = Object.keys(dictionary)
-  .filter(word => word.length >= 3 && !word.includes(' '));
 
 export const searchWord = async (word: string): Promise<WordResult | null> => {
   try {
@@ -49,6 +56,7 @@ export const searchWord = async (word: string): Promise<WordResult | null> => {
 export const getWordSuggestions = async (prefix: string): Promise<string[]> => {
   try {
     const normalizedPrefix = prefix.toLowerCase();
+    const wordList = getWordList();
     
     // Filter words from the dictionary that start with the prefix, are at least 3 letters long, and don't contain spaces
     const suggestions = wordList
