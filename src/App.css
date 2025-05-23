@@ -63,9 +63,12 @@ h1 {
 }
 
 .MuiAutocomplete-listbox {
-  max-height: 336px !important; /* 48px * 7 */
-  min-height: 336px !important;
+  max-height: 240px !important;   /* 48px * 5 */
+  min-height: 240px !important;
+  width: 100% !important;
+  min-width: 0 !important;
   overflow-y: auto !important;
+  box-sizing: border-box;
   transition: max-height 0.2s cubic-bezier(0.4,0,0.2,1), opacity 0.2s;
   opacity: 1;
 }
@@ -89,8 +92,8 @@ h1 {
 
 @media (max-width: 600px) {
   .MuiAutocomplete-listbox {
-    max-height: 336px !important;
-    min-height: 336px !important;
+    max-height: 240px !important;
+    min-height: 240px !important;
   }
   .MuiAutocomplete-option {
     min-height: 48px !important;

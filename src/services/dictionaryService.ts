@@ -15,7 +15,7 @@ type Dictionary = Record<string, string>;
 
 let dictionaryCache: Dictionary | null = null;
 
-async function loadDictionary(): Promise<Dictionary> {
+export async function loadDictionary(): Promise<Dictionary> {
   if (dictionaryCache) return dictionaryCache;
   const res = await fetch('/dictionary.json');
   const data = await res.json();

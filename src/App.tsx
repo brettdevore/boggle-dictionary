@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { searchWord, getWordSuggestions } from './services/dictionaryService';
+import { searchWord, getWordSuggestions, loadDictionary } from './services/dictionaryService';
 import type { WordResult } from './services/dictionaryService';
 import { Autocomplete, TextField } from '@mui/material';
 import GoogleLogo from './components/GoogleLogo';
@@ -11,12 +11,17 @@ function App() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
+  // Preload dictionary on app load
+  useEffect(() => {
+    loadDictionary();
+  }, []);
+
   useEffect(() => {
     if (!search) return setSuggestions([]);
-    const timeout = setTimeout(async () => {
+    // Remove debounce for instant suggestions
+    (async () => {
       setSuggestions(await getWordSuggestions(search));
-    }, 150);
-    return () => clearTimeout(timeout);
+    })();
   }, [search]);
 
   const handleSearch = async (word: string | null) => {
