@@ -62,18 +62,20 @@ h1 {
   border-color: #4299e1;
 }
 
-.search-input .MuiAutocomplete-listbox {
-  padding: 0;
-  max-height: 336px !important;
+.MuiAutocomplete-listbox {
+  max-height: 336px !important; /* 48px * 7 */
+  min-height: 336px !important;
   overflow-y: auto !important;
+  transition: max-height 0.2s cubic-bezier(0.4,0,0.2,1), opacity 0.2s;
+  opacity: 1;
 }
 
-.search-input .MuiAutocomplete-option {
-  padding: 0.75rem 1rem;
-  color: #2d3748;
+.MuiAutocomplete-option {
   min-height: 48px !important;
   height: 48px !important;
   box-sizing: border-box;
+  transition: opacity 0.2s;
+  opacity: 1;
 }
 
 .search-input .MuiAutocomplete-option:hover {
@@ -83,6 +85,17 @@ h1 {
 .search-input .MuiAutocomplete-option.Mui-focused {
   background-color: #ebf8ff;
   color: #2b6cb0;
+}
+
+@media (max-width: 600px) {
+  .MuiAutocomplete-listbox {
+    max-height: 336px !important;
+    min-height: 336px !important;
+  }
+  .MuiAutocomplete-option {
+    min-height: 48px !important;
+    height: 48px !important;
+  }
 }
 
 .loading {
