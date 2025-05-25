@@ -35,7 +35,7 @@ function App() {
     <div className="app">
       <div className="container">
         <div className="logo-container"><GoogleLogo /></div>
-        <p className="subtitle"><strong>Find your Boggle word</strong></p>
+        <p className="subtitle"><strong>Find your Boggle word:</strong></p>
         <div className="search-container">
           <Autocomplete
             freeSolo
