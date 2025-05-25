@@ -40,11 +40,37 @@ export const searchWord = async (word: string): Promise<WordResult | null> => {
   return null;
 };
 
+const isPluralForm = (word: string, otherWord: string): boolean => {
+  // Check if word is plural of otherWord
+  if (word === otherWord + 's') return true;
+  // Check for words ending in 'y' that become 'ies'
+  if (otherWord.endsWith('y') && word === otherWord.slice(0, -1) + 'ies') return true;
+  return false;
+};
+
 export const getWordSuggestions = async (prefix: string): Promise<string[]> => {
   const dictionary = await loadDictionary();
   const normalizedPrefix = prefix.toLowerCase();
-  return Object.keys(dictionary)
+  let suggestions = Object.keys(dictionary)
     .filter(word => word.length >= 3 && !word.includes(' ') && word.startsWith(normalizedPrefix))
-    .sort((a, b) => a.length !== b.length ? a.length - b.length : a.localeCompare(b))
-    .slice(0, 21);
+    .sort((a, b) => {
+      if (a.length !== b.length) return a.length - b.length;
+      return a.localeCompare(b);
+    });
+
+  // Only prioritize the standard 's' ending plural
+  const baseIdx = suggestions.indexOf(normalizedPrefix);
+  const plural = normalizedPrefix + 's';
+  const pluralIdx = suggestions.indexOf(plural);
+
+  if (pluralIdx !== -1) {
+    const [pluralWord] = suggestions.splice(pluralIdx, 1);
+    if (baseIdx !== -1) {
+      suggestions.splice(baseIdx + 1, 0, pluralWord);
+    } else {
+      suggestions.unshift(pluralWord);
+    }
+  }
+
+  return suggestions.slice(0, 21);
 }; 
