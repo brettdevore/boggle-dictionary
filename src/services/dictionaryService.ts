@@ -40,14 +40,6 @@ export const searchWord = async (word: string): Promise<WordResult | null> => {
   return null;
 };
 
-const isPluralForm = (word: string, otherWord: string): boolean => {
-  // Check if word is plural of otherWord
-  if (word === otherWord + 's') return true;
-  // Check for words ending in 'y' that become 'ies'
-  if (otherWord.endsWith('y') && word === otherWord.slice(0, -1) + 'ies') return true;
-  return false;
-};
-
 export const getWordSuggestions = async (prefix: string): Promise<string[]> => {
   const dictionary = await loadDictionary();
   const normalizedPrefix = prefix.toLowerCase();
