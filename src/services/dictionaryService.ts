@@ -17,10 +17,14 @@ let dictionaryCache: Dictionary | null = null;
 
 export async function loadDictionary(): Promise<Dictionary> {
   if (dictionaryCache) return dictionaryCache;
-  const res = await fetch('/dictionary.json');
+  const res = await fetch('/boggleDictionary.json');
   const data = await res.json();
   dictionaryCache = data as Dictionary;
   return dictionaryCache;
+}
+
+export function clearDictionaryCache(): void {
+  dictionaryCache = null;
 }
 
 export const searchWord = async (word: string): Promise<WordResult | null> => {
@@ -31,13 +35,13 @@ export const searchWord = async (word: string): Promise<WordResult | null> => {
     return null;
   }
   if (normalizedWord in dictionary) {
-    return {
+      return {
       word: normalizedWord,
       definition: dictionary[normalizedWord],
       score: calculateScore(normalizedWord)
-    };
-  }
-  return null;
+      };
+    }
+    return null;
 };
 
 export const getWordSuggestions = async (prefix: string): Promise<string[]> => {

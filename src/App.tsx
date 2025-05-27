@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { searchWord, getWordSuggestions, loadDictionary } from './services/dictionaryService';
+import { searchWord, getWordSuggestions, loadDictionary, clearDictionaryCache } from './services/dictionaryService';
 import type { WordResult } from './services/dictionaryService';
 import { Autocomplete, TextField } from '@mui/material';
 import GoogleLogo from './components/GoogleLogo';
@@ -13,6 +13,8 @@ function App() {
 
   // Preload dictionary on app load
   useEffect(() => {
+    // Clear cache to ensure we get the latest dictionary
+    clearDictionaryCache();
     loadDictionary();
   }, []);
 
