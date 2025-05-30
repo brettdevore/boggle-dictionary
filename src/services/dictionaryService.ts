@@ -14,17 +14,41 @@ const calculateScore = (word: string): number => {
 type Dictionary = Record<string, string>;
 
 let dictionaryCache: Dictionary | null = null;
+let currentDictionary: string = 'boggleDictionary.json'; // Default dictionary
+let loadingPromise: Promise<Dictionary> | null = null;
+
+export function setCurrentDictionary(dictionaryFile: string): void {
+  if (currentDictionary !== dictionaryFile) {
+    console.log(`Switching dictionary from ${currentDictionary} to ${dictionaryFile}`);
+    currentDictionary = dictionaryFile;
+    // Clear cache when switching dictionaries
+    dictionaryCache = null;
+    loadingPromise = null;
+  }
+}
 
 export async function loadDictionary(): Promise<Dictionary> {
   if (dictionaryCache) return dictionaryCache;
-  const res = await fetch('/boggleDictionary.json');
-  const data = await res.json();
-  dictionaryCache = data as Dictionary;
-  return dictionaryCache;
+  
+  // If already loading, return the existing promise
+  if (loadingPromise) return loadingPromise;
+  
+  console.log(`Loading dictionary: ${currentDictionary}`);
+  
+  loadingPromise = (async () => {
+    const res = await fetch(`/${currentDictionary}`);
+    const data = await res.json();
+    dictionaryCache = data as Dictionary;
+    console.log(`Dictionary loaded successfully: ${currentDictionary} (${Object.keys(dictionaryCache).length} words)`);
+    return dictionaryCache;
+  })();
+  
+  return loadingPromise;
 }
 
 export function clearDictionaryCache(): void {
   dictionaryCache = null;
+  loadingPromise = null;
 }
 
 export const searchWord = async (word: string): Promise<WordResult | null> => {
