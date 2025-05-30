@@ -70,7 +70,7 @@ function App() {
         <header className="header">
           <BoggleLogo />
           <h2 className="subtitle-main">Word Checker</h2>
-          <p className="subtitle">Find out if your boggle word is real</p>
+          {/* <p className="subtitle">Find out if your boggle word is real</p> */}
         </header>
         
         <main className="main-content">
