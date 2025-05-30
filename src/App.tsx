@@ -11,7 +11,8 @@ type DictionaryType = 'NWL 2023' | 'MW Scrabble' | 'CSW 2024';
 const DICTIONARY_FILE_MAP: Record<DictionaryType, string> = {
   'MW Scrabble': 'boggleDictionary.json',
   'NWL 2023': 'NWL2023.json',
-  'CSW 2024': 'CSW2024.json'
+  'CSW 2024': 'CSW2024.json',
+  'All Words': 'dictionary.json'
 };
 
 function App() {
@@ -92,7 +93,7 @@ function App() {
               renderInput={(params) => (
                 <TextField 
                   {...params} 
-                  placeholder={dictionaryLoading ? "Enter word..." : "Enter word..."} 
+                  placeholder={dictionaryLoading ? "Search..." : "Search..."} 
                   variant="outlined" 
                   fullWidth 
                   className="search-field"
@@ -139,6 +140,7 @@ function App() {
               <MenuItem value="NWL 2023">nwl 2023 (official)</MenuItem>
               <MenuItem value="MW Scrabble">mw scrabble (strictest)</MenuItem>
               <MenuItem value="CSW 2024">csw 2024 (international)</MenuItem>
+              <MenuItem value="All Words">all words (offensive)</MenuItem>
             </Select>
           </FormControl>
         </div>
