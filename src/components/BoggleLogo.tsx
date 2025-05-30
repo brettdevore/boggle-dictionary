@@ -22,8 +22,8 @@ const BoggleLogo: React.FC = () => {
           {/* Small letters in the four primary squares */}
           <text x="24" y="26" textAnchor="middle" dominantBaseline="middle" fontSize="8" fontFamily="Inter, sans-serif" fontWeight="400" fill="#9c9691" opacity="0.8">B</text>
           <text x="40" y="26" textAnchor="middle" dominantBaseline="middle" fontSize="8" fontFamily="Inter, sans-serif" fontWeight="400" fill="#9c9691" opacity="0.8">O</text>
-          <text x="24" y="42" textAnchor="middle" dominantBaseline="middle" fontSize="8" fontFamily="Inter, sans-serif" fontWeight="400" fill="#9c9691" opacity="0.8">G</text>
-          <text x="40" y="42" textAnchor="middle" dominantBaseline="middle" fontSize="8" fontFamily="Inter, sans-serif" fontWeight="400" fill="#9c9691" opacity="0.8">L</text>
+          <text x="24" y="42" textAnchor="middle" dominantBaseline="middle" fontSize="8" fontFamily="Inter, sans-serif" fontWeight="400" fill="#9c9691" opacity="0.8">O</text>
+          <text x="40" y="42" textAnchor="middle" dominantBaseline="middle" fontSize="8" fontFamily="Inter, sans-serif" fontWeight="400" fill="#9c9691" opacity="0.8">B</text>
         </svg>
       </div>
       <div className="logo-text">

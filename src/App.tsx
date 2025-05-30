@@ -129,22 +129,22 @@ function App() {
         
         <div className="dictionary-selector">
           <FormControl variant="outlined" size="small" className="dictionary-select">
-            <InputLabel id="dictionary-select-label">Select Dictionary</InputLabel>
+            <InputLabel id="dictionary-select-label">dictionary</InputLabel>
             <Select
               labelId="dictionary-select-label"
               value={selectedDictionary}
               onChange={(e) => handleDictionaryChange(e.target.value as DictionaryType)}
-              label="Dictionary"
+              label="dictionary"
             >
-              <MenuItem value="MW Scrabble">MW Scrabble (strictest)</MenuItem>
-              <MenuItem value="NWL 2023">NWL 2023 (official)</MenuItem>
-              <MenuItem value="CSW 2024">CSW 2024 (international)</MenuItem>
+              <MenuItem value="NWL 2023">nwl 2023 (official)</MenuItem>
+              <MenuItem value="MW Scrabble">mw scrabble (strictest)</MenuItem>
+              <MenuItem value="CSW 2024">csw 2024 (international)</MenuItem>
             </Select>
           </FormControl>
         </div>
         
         <footer className="footer">
-          <p className="footer-text">made with 🖤 for boggle nerds</p>
+          <p className="footer-text">made with <span>🖤</span> for boggle nerds</p>
         </footer>
       </div>
     </div>

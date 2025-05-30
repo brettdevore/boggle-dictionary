@@ -525,6 +525,10 @@ html, body, #root, .app {
   width: 240px;
 }
 
+.MuiList-root.MuiList-padding.MuiMenu-list.css-1toxriw-MuiList-root-MuiMenu-list{
+  justify-content: center;
+}
+
 .dictionary-select .MuiOutlinedInput-root {
   /* background-color: white; */
   border-radius: var(--radius-lg);
@@ -532,6 +536,7 @@ html, body, #root, .app {
   font-weight: 400;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--shadow-sm);
+  text-align:center;
 }
 
 .dictionary-select .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
@@ -551,13 +556,27 @@ html, body, #root, .app {
 }
 
 .dictionary-select .MuiInputLabel-root {
-  color: var(--color-stone-500);
+  color: var(--color-stone-400);
   font-family: var(--font-primary);
-  font-size: 0.9375rem;
+  font-size: 0.8rem;
   text-align: center;
   width: 100%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   transform-origin: center;
+  top:-8px;
+  background-color: transparent;
+  padding: 0 var(--space-2);
+}
+
+/* Target the fieldset legend that creates the gray background */
+.dictionary-select .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline legend {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.dictionary-select .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline legend span {
+  padding: 0 var(--space-6);
 }
 
 .dictionary-select .MuiInputLabel-root.Mui-focused {
@@ -565,9 +584,9 @@ html, body, #root, .app {
 }
 
 .dictionary-select .MuiSelect-select {
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4) var(--space-4);
   font-family: var(--font-primary);
-  color: var(--color-stone-800);
+  color: var(--color-stone-400);
 }
 
 /* Dictionary dropdown menu */
@@ -618,6 +637,11 @@ html, body, #root, .app {
   transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Make the heart emoji flat and dark gray */
+.footer-text span{
+  filter: grayscale(1) brightness(.1);
+}
+
 .footer-text:hover {
-  opacity: 1;
+  opacity: .9;
 } 
