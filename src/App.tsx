@@ -5,7 +5,7 @@ import { Autocomplete, TextField, FormControl, InputLabel, Select, MenuItem } fr
 import BoggleLogo from './components/BoggleLogo';
 import './App.css';
 
-type DictionaryType = 'NWL 2023' | 'MW Scrabble' | 'CSW 2024';
+type DictionaryType = 'NWL 2023' | 'MW Scrabble' | 'CSW 2024' | 'All Words';
 
 // Map dropdown values to dictionary files
 const DICTIONARY_FILE_MAP: Record<DictionaryType, string> = {
